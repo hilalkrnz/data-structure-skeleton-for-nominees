@@ -1,46 +1,68 @@
-public class Node {
+class Node(var data: Int) {
+    var following: Node? = null
 
-    Node following = null;
+    fun appendToEnd(data: Int) {
+        val end = Node(data)
+        var n: Node? = this
 
-    int data;
-
-    public Node(int data) {
-        this.data = data;
-    }
-
-    public void appendToEnd(int data) {
-        Node end = new Node(data);
-        Node n = this;
-
-        while (n.following != null) {
-            n = n.following;
+        while (n!!.following != null) {
+            n = n.following
         }
-        n.following = end;
+        n.following = end
     }
 
     // TODO:: Implement to return the length of the SinglyLinkedList
     // For example:: --> 5 --> 6 --> 7 --> 3 --> .
-    public void printNodes() {
+    fun printNodes() {
+        var current: Node? = this
+        while (current != null) {
+            print("${current.data} ---> ")
+            current = current.following
+        }
+        println("null")
     }
 
     // TODO:: Implement to return the length of the SinglyLinkedList
-    int length(Node h) {
-        return 0;
+    fun length(h: Node?): Int {
+        var current = h
+        var length: Int = 0
+
+        while (current != null) {
+            length++
+            current = current.following
+        }
+        return length
     }
 
     // TODO:: Implement to return the sum of the Nodes
-    int sumOfNodes() {
-        return 0;
+    fun sumOfNodes(): Int {
+        var current: Node? = this
+        var sum = 0
+        while (current != null) {
+            sum += current.data
+            current = current.following
+        }
+        return sum
     }
 
-    Node deleteNode(Node head, int data) {
-        Node n = head;
-        if (n.data == data) {
-            return head.following;
+    fun deleteNode(head: Node, data: Int): Node? {
+        val current: Node = head
+        if (current.data == data) {
+            return current.following
         }
-        // TODO:: Implement the proper loop in order to remove given data
 
-        //
-        return head;
+        // TODO:: Implement the proper loop in order to remove given data
+        var iterator: Node? = current
+
+        while (iterator?.following != null) {
+            val nextNode = iterator.following
+            if (nextNode?.data == data) {
+                iterator.following = nextNode.following
+                return current
+            }
+            iterator = nextNode
+        }
+
+        return current
     }
 }
